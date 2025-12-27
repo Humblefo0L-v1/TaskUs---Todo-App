@@ -1,0 +1,9 @@
+[build]
+  base = "TaskUs_frontend"
+  command = "npm ci && npm run build -- --configuration=production"
+  publish = "dist/todo-app-frontend/browser"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
