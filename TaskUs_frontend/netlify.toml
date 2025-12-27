@@ -1,7 +1,7 @@
 [build]
   base = "TaskUs_frontend"
   command = "npm ci && npm run build -- --configuration=production"
-  publish = "dist/todo-app-frontend/browser"
+  publish = "dist/TaskUs_frontend/browser"
 
 [[redirects]]
   from = "/*"
