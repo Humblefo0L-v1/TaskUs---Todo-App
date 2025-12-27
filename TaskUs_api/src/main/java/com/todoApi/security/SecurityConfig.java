@@ -76,22 +76,16 @@ public class SecurityConfig {
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
 
-                // Allow Angular frontend
-                configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+                // Allow both local and production frontends
+                configuration.setAllowedOrigins(Arrays.asList(
+                                "http://localhost:4200",
+                                System.getenv("FRONTEND_URL") != null ? System.getenv("FRONTEND_URL")
+                                                : "http://localhost:4200"));
 
-                // Allow all HTTP methods
                 configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-
-                // Allow all headers
                 configuration.setAllowedHeaders(Arrays.asList("*"));
-
-                // Expose Authorization header to frontend
                 configuration.setExposedHeaders(Arrays.asList("Authorization"));
-
-                // Allow credentials (cookies, authorization headers)
                 configuration.setAllowCredentials(true);
-
-                // Cache preflight response for 1 hour
                 configuration.setMaxAge(3600L);
 
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
