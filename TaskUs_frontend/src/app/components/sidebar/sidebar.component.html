@@ -1,0 +1,28 @@
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <h3>Filters</h3>
+    <ul class="filter-list">
+      <li 
+        [class.active]="activeFilter === 'all'"
+        (click)="setFilter('all')"
+      >
+        <span class="icon">📋</span>
+        <span>All Tasks</span>
+      </li>
+      <li 
+        [class.active]="activeFilter === 'active'"
+        (click)="setFilter('active')"
+      >
+        <span class="icon">⭕</span>
+        <span>Active</span>
+      </li>
+      <li 
+        [class.active]="activeFilter === 'completed'"
+        (click)="setFilter('completed')"
+      >
+        <span class="icon">✅</span>
+        <span>Completed</span>
+      </li>
+    </ul>
+  </div>
+</aside>

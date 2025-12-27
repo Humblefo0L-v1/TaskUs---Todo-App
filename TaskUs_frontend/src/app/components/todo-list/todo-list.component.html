@@ -1,0 +1,82 @@
+<div class="app-layout">
+  <app-navbar></app-navbar>
+  
+  <div class="content-area">
+    <app-sidebar (filterChange)="onFilterChange($event)"></app-sidebar>
+    
+    <main class="main-content">
+      <div class="content-header">
+        <h1>
+          <span *ngIf="activeFilter === 'all'">All Tasks</span>
+          <span *ngIf="activeFilter === 'active'">Active Tasks</span>
+          <span *ngIf="activeFilter === 'completed'">Completed Tasks</span>
+        </h1>
+        <button class="btn-add" (click)="openAddModal()">
+          <span class="icon">+</span>
+          Add Task
+        </button>
+      </div>
+
+      <div class="todos-container">
+        <div *ngIf="filteredTodos.length === 0" class="empty-state">
+          <div class="empty-icon">📋</div>
+          <h3>No tasks yet</h3>
+          <p>Create your first task to get started!</p>
+        </div>
+
+        <div *ngFor="let todo of filteredTodos" class="todo-item" [class.completed]="todo.completed">
+          <div class="todo-checkbox">
+            <input 
+              type="checkbox" 
+              [checked]="todo.completed"
+              (change)="toggleTodo(todo)"
+              [id]="'todo-' + todo.id"
+            />
+            <label [for]="'todo-' + todo.id"></label>
+          </div>
+
+          <div class="todo-content" *ngIf="editingTodo?.id !== todo.id">
+            <div class="todo-title">{{ todo.title }}</div>
+            <div class="todo-description" *ngIf="todo.description">
+              {{ todo.description }}
+            </div>
+          </div>
+
+          <div class="todo-edit-form" *ngIf="editingTodo?.id === todo.id">
+            <input 
+              type="text" 
+              [(ngModel)]="editTitle"
+              class="edit-title-input"
+              placeholder="Task title"
+            />
+            <textarea 
+              [(ngModel)]="editDescription"
+              class="edit-desc-input"
+              placeholder="Description"
+              rows="2"
+            ></textarea>
+            <div class="edit-actions">
+              <button class="btn-save" (click)="saveEdit()">Save</button>
+              <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+            </div>
+          </div>
+
+          <div class="todo-actions" *ngIf="editingTodo?.id !== todo.id">
+            <button class="btn-icon" (click)="startEdit(todo)" title="Edit">
+              ✏️
+            </button>
+            <button class="btn-icon" (click)="deleteTodo(todo)" title="Delete">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <app-add-todo-modal 
+    *ngIf="showAddModal"
+    (close)="closeAddModal()"
+    (addTodo)="addTodo($event)"
+  ></app-add-todo-modal>
+</div>
