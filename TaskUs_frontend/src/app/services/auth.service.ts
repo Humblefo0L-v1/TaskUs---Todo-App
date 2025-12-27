@@ -4,12 +4,13 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthResponse } from '../models/auth-response';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = `${environment.apiUrl}/api/auth`;
   private currentUserSubject: BehaviorSubject<AuthResponse | null>;
   public currentUser: Observable<AuthResponse | null>;
 

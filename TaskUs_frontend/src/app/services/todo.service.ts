@@ -4,12 +4,13 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Todo } from '../models/todo';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  private apiUrl = 'http://localhost:8080/api/todos';
+  private apiUrl = `${environment.apiUrl}/api/todos`; 
   private todosSubject = new BehaviorSubject<Todo[]>([]);
   public todos$ = this.todosSubject.asObservable();
 
